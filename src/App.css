@@ -1,0 +1,117 @@
+.imagem{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: inline-block; 
+  margin: 10px;
+  padding-left: 700px;
+  
+  }
+
+  .imagem img {
+    display: block;
+    width: 100%;
+    height: auto; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  h1{
+  font-size: 40px;
+  margin: 0px;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #C5BAA7;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color:#524737;
+  }
+
+  h2{
+  border-style: none;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #BDBBB7;
+  border-radius: 10px;
+  color:#5c5a52;
+  }
+
+  .botao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  button{
+    border-style: none;
+    background-color: #BDBBB7; 
+    color: #5c5a52; 
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  
+  @media (max-width: 768px) {
+    article {
+      align-items: center;
+      padding: 10px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      text-align: center; 
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+      text-align: center; 
+    }
+  
+    .imagem {
+      align-items: center; 
+    }
+  
+    button {
+      font-size: 0.875rem; 
+      padding: 8px 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    article {
+      padding: 10px;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+      text-align: center; 
+    }
+  
+    h2 {
+      font-size: 1.25rem;
+      text-align: center; 
+    }
+  
+    .imagem {
+      align-items: center; 
+    }
+  
+    button {
+      font-size: 0.75rem;
+      padding: 6px 12px;
+    }
+  }
