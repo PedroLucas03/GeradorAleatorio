@@ -58,25 +58,3 @@ O método render do componente retorna um JSX que define a estrutura visual:
 •	Um título principal.
 •	Uma mensagem de erro, se houver.
 •	Dois blocos para exibir as imagens dos cachorros e gatos, cada um com um botão para atualizar a imagem.
-
-  return (
-    <article>
-      <h1>Imagens de Cachorros e Gatos Aleatórias</h1>
-      {error && <p className='error'>{error}</p>}
-      <div className='imagem'>
-        <h2>Cachorro</h2>
-        <img src={dogImage} alt="Imagem Aleatória de Cachorro" />
-        <div className='botao'>
-          <button className='botao' onClick={fetchDogImage}>Nova Imagem</button>
-        </div>
-      </div>
-      <div className='imagem'>
-        <h2>Gato</h2>
-        <img src={catImage} alt="Imagem Aleatória de Gato" />
-        <div className='botao'>
-          <button onClick={fetchCatImage}>Nova Imagem</button>
-        </div>
-      </div>
-    </article>
-  );
-}
