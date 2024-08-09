@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+Documentação do código do projeto em React com integração de uma API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Gerando Imagens Aleatórias de Cachorros e Gatos
 
-## Available Scripts
+Este projeto React é um aplicativo que exibe imagens aleatórias de cachorros e gatos, obtidas de APIs externas. O objetivo é demonstrar a integração com APIs e a manipulação de estados e efeitos colaterais em um componente funcional React. O usuário pode atualizar as imagens clicando nos botões correspondentes.
+O componente importa o React e os hooks useEffect e useState da biblioteca react. Também importa dois arquivos de estilo CSS, App.css e index.css, para estilizar o componente.
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import './index.css';
 
-In the project directory, you can run:
+Utilizei o hook useState para gerenciar três estados:
+•	dogImage: armazena a URL da imagem aleatória do cachorro.
+•	catImage: armazena a URL da imagem aleatória do gato.
+•	error: armazena mensagens de erro, caso ocorra algum problema ao buscar as imagens.
+  const [dogImage, setDogImage] = useState('');
+  const [catImage, setCatImage] = useState('');
+  const [error, setError] = useState('');
 
-### `npm start`
+fetchDogImage: Esta função faz uma requisição para a API https://dog.ceo/api/breed/beagle/images/random para obter uma imagem aleatória de um cachorro da raça Beagle. Se a resposta for bem-sucedida, a URL da imagem é armazenada em dogImage. Caso contrário, a mensagem de erro é armazenada em error.
+  const fetchDogImage = () => {
+    const url = 'https://dog.ceo/api/breed/beagle/images/random';
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    fetch(url)
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error('Erro ao buscar imagem de cachorro');
+        }
+        return r.json();
+      })
+      .then((data) => setDogImage(data.message))
+      .catch((err) => setError(err.message));
+  };
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+fetchCatImage: Semelhante à função acima, esta função faz uma requisição para a API https://api.thecatapi.com/v1/images/search para obter uma imagem aleatória de um gato. Armazena a URL da imagem em catImage ou a mensagem de erro em error.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  const fetchCatImage = () => {
+    const url = 'https://api.thecatapi.com/v1/images/search';
 
-### `npm run build`
+    fetch(url)
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error('Erro ao buscar imagem de gato');
+        }
+        return r.json();
+      })
+      .then((data) => setCatImage(data[0].url))
+      .catch((err) => setError(err.message));
+  };
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Utilizei o hook useEffect para chamar as funções fetchDogImage e fetchCatImage quando o componente é montado pela primeira vez. 
+  useEffect(() => {
+    fetchDogImage();
+    fetchCatImage();
+  }, []);
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+O método render do componente retorna um JSX que define a estrutura visual:
+•	Um título principal.
+•	Uma mensagem de erro, se houver.
+•	Dois blocos para exibir as imagens dos cachorros e gatos, cada um com um botão para atualizar a imagem.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  return (
+    <article>
+      <h1>Imagens de Cachorros e Gatos Aleatórias</h1>
+      {error && <p className='error'>{error}</p>}
+      <div className='imagem'>
+        <h2>Cachorro</h2>
+        <img src={dogImage} alt="Imagem Aleatória de Cachorro" />
+        <div className='botao'>
+          <button className='botao' onClick={fetchDogImage}>Nova Imagem</button>
+        </div>
+      </div>
+      <div className='imagem'>
+        <h2>Gato</h2>
+        <img src={catImage} alt="Imagem Aleatória de Gato" />
+        <div className='botao'>
+          <button onClick={fetchCatImage}>Nova Imagem</button>
+        </div>
+      </div>
+    </article>
+  );
+}
